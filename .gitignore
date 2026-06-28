@@ -1,0 +1,19 @@
+# Build output
+.build/
+build/
+DerivedData/
+
+# Xcode project is generated from project.yml by xcodegen — see CLAUDE.md
+Vitro.xcodeproj/
+
+# Xcode/SwiftPM user data
+.swiftpm/xcode/
+*.xcuserstate
+xcuserdata/
+
+# Editor / local tooling
+.vscode/
+.claude/
+
+# macOS
+.DS_Store
