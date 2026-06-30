@@ -54,26 +54,20 @@ final class CodeBlockLayoutManager: NSLayoutManager {
     override func drawBackground(forGlyphRange glyphsToShow: NSRange, at origin: NSPoint) {
         if let textStorage, let container = textContainers.first {
             let shownChars = characterRange(forGlyphRange: glyphsToShow, actualGlyphRange: nil)
-            let nsString = textStorage.string as NSString
             let full = NSRange(location: 0, length: textStorage.length)
             textStorage.enumerateAttribute(CodeBlock.key, in: full, options: []) { value, runRange, _ in
                 guard value != nil,
                       NSIntersectionRange(runRange, shownChars).length > 0 else { return }
 
-                // Drop a trailing newline: it lays out a zero-width fragment at
-                // the start of the *next* line and would add a sliver above/below
-                // the card. The newline sits on the same fragment as its line, so
-                // the box is unchanged otherwise.
-                var charRange = runRange
-                while charRange.length > 0,
-                      nsString.character(at: charRange.location + charRange.length - 1) == 10 {
-                    charRange.length -= 1
-                }
-                guard charRange.length > 0 else { return }
-
-                // Union the actual line-fragment rects (whole run, even if only
-                // partly visible) so the rounded corners are always complete.
-                let glyphRange = self.glyphRange(forCharacterRange: charRange,
+                // Union every line fragment of the run, blank lines included. A
+                // code run carries the blank lines that separate it from the
+                // surrounding text (a leading/trailing newline), and covering them
+                // gives the card symmetric breathing room above the first code line
+                // and below the last — the same padding top and bottom. (A trailing
+                // newline at the very end of the document lays out as the layout
+                // manager's *extra* line fragment, which `enumerateLineFragments`
+                // skips, so it can't stretch the card past the document either.)
+                let glyphRange = self.glyphRange(forCharacterRange: runRange,
                                                  actualCharacterRange: nil)
                 var box = CGRect.null
                 enumerateLineFragments(forGlyphRange: glyphRange) { rect, _, _, _, _ in
