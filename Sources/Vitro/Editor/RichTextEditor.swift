@@ -23,6 +23,11 @@ struct RichTextEditor: NSViewRepresentable {
         scroll.drawsBackground = false
         scroll.hasVerticalScroller = true
         scroll.autohidesScrollers = true
+        // The text always wraps to the container width, so there is nothing to
+        // reach sideways. Without this the trackpad rubber-bands the document
+        // horizontally and drags the text over the line-number gutter.
+        scroll.hasHorizontalScroller = false
+        scroll.horizontalScrollElasticity = .none
 
         let contentSize = scroll.contentSize
         let textView = CheckboxTextView(frame: NSRect(origin: .zero, size: contentSize))
