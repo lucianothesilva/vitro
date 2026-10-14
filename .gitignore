@@ -3,7 +3,7 @@
 build/
 DerivedData/
 
-# Xcode project is generated from project.yml by xcodegen — see CLAUDE.md
+# Xcode project is generated from project.yml by xcodegen — see AGENTS.md
 Vitro.xcodeproj/
 
 # Xcode/SwiftPM user data

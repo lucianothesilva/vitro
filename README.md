@@ -70,7 +70,7 @@ xcodegen generate
 - `Sources/Vitro/Models/` — `Note` e a `NotesStore` que as persiste.
 - `main.swift` / `VitroApp.swift` — ponto de entrada em AppKit puro e o menu.
 
-Veja [CLAUDE.md](CLAUDE.md) para a arquitetura em profundidade.
+Veja [AGENTS.md](AGENTS.md) para a arquitetura em profundidade.
 
 ## Licença
 
