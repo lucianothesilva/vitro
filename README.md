@@ -1,71 +1,77 @@
 # Vitro
 
-A minimal, native macOS note editor. Rich text with interactive checklists,
-organized as native window tabs, wrapped in Liquid Glass.
+![Vitro](vitro.png)
 
-## Features
+Um editor de notas minimalista e nativo para macOS. Texto rico com checklists
+interativos, organizado em abas de janela nativas, envolto em Liquid Glass.
 
-- **Rich-text notes** with inline, clickable checkboxes.
-- **Native macOS window tabs** — each note is a real tabbed window (`⌘1`, `⌘2`, …,
-  drag to reorder, `+` to add). On macOS 26 (Tahoe) the tab bar and titlebar get the
-  system's Liquid Glass treatment; editor content floats on a frosted vibrancy base.
-- **Titles derive from your text** — the first non-empty line names the note, Apple
-  Notes style. No title field to manage.
-- **Always-on, file-free storage.** Notes are auto-saved as JSON; you only touch the
-  filesystem when you **Export** a note to Markdown.
-- **One typeface, Inter**, throughout the app.
+## Recursos
 
-## Requirements
+- **Notas em texto rico** com checkboxes clicáveis em linha.
+- **Abas de janela nativas do macOS** — cada nota é uma janela com abas de verdade (`⌘1`, `⌘2`, …,
+  arraste para reordenar, `+` para adicionar). No macOS 26 (Tahoe), a barra de abas e a barra de
+  título recebem o tratamento Liquid Glass do sistema; o conteúdo do editor flutua sobre uma base
+  de vibrancy fosca.
+- **Títulos derivados do seu texto** — a primeira linha não vazia nomeia a nota, no estilo do
+  Apple Notes. Sem campo de título para gerenciar.
+- **Armazenamento sempre ativo, sem arquivos.** As notas são salvas automaticamente como JSON;
+  você só toca o sistema de arquivos quando **Exporta** uma nota para Markdown.
+- **Uma única tipografia, Inter**, em todo o app.
 
-- **macOS 26 (Tahoe) or later** — the Liquid Glass and native-tab behavior depend on
-  the Tahoe SDK.
+## Requisitos
+
+- **macOS 26 (Tahoe) ou superior** — o Liquid Glass e o comportamento de abas nativas dependem do
+  SDK do Tahoe.
 - Xcode 26+ / Swift 6.
-- [XcodeGen](https://github.com/yonaskolb/XcodeGen) (`brew install xcodegen`) to regenerate
-  the Xcode project from `project.yml`.
-- The [Inter](https://rsms.me/inter/) font installed (the app falls back to the system
-  font if it isn't).
+- [XcodeGen](https://github.com/yonaskolb/XcodeGen) (`brew install xcodegen`) para regenerar o
+  projeto Xcode a partir de `project.yml`.
+- A fonte [Inter](https://rsms.me/inter/) instalada (o app volta para a fonte do sistema caso ela
+  não esteja).
 
-## Build & run
+## Como compilar e executar
 
 ```sh
-# Build, install to /Applications, and launch:
+# Compila, instala em /Applications e abre:
 sh scripts/run-local.sh
 ```
 
-For a quick compile check during development:
+Para uma checagem rápida de compilação durante o desenvolvimento:
 
 ```sh
 swift build
 ```
 
-If you add, remove, or rename a source file, regenerate the Xcode project first:
+Se você adicionar, remover ou renomear um arquivo-fonte, regenere o projeto Xcode primeiro:
 
 ```sh
 xcodegen generate
 ```
 
-> The build is **ad-hoc signed** for local use — it runs on your Mac but is not
-> notarized for distribution. Shipping to other machines needs a Developer ID
-> certificate.
+> A compilação é **assinada ad-hoc** para uso local — ela roda no seu Mac, mas não é notarizada
+> para distribuição. Enviar para outras máquinas exige um certificado Developer ID.
 
-## Keyboard shortcuts
+## Atalhos de teclado
 
-| Shortcut        | Action            |
-| --------------- | ----------------- |
-| `⌘T`            | New tab           |
-| `⌘W`            | Close tab         |
-| `⌘S`            | Export to Markdown|
-| `⌘⇧L`           | Insert checklist  |
-| `⌘+` / `⌘-`     | Increase / decrease font size |
-| `⌘0`            | Reset font size   |
+| Atalho      | Ação                                  |
+| ----------- | ------------------------------------- |
+| `⌘T`        | Nova aba                              |
+| `⌘W`        | Fechar aba                            |
+| `⌘S`        | Exportar para Markdown                |
+| `⌘⇧L`       | Inserir checklist                     |
+| `⌘+` / `⌘-` | Aumentar / diminuir o tamanho da fonte |
+| `⌘0`        | Redefinir o tamanho da fonte          |
 
-## Project layout
+## Estrutura do projeto
 
-- `Sources/Vitro/Window/` — AppKit window/tab layer (`NoteWindow`, `NoteWindowController`,
-  `TabController`).
-- `Sources/Vitro/Editor/` — the `NSTextView`-based rich-text editor, checkboxes, and
-  line-number gutter.
-- `Sources/Vitro/Models/` — `Note` and the `NotesStore` that persists them.
-- `main.swift` / `VitroApp.swift` — pure-AppKit entry point and menu.
+- `Sources/Vitro/Window/` — camada de janela/abas em AppKit (`NoteWindow`,
+  `NoteWindowController`, `TabController`).
+- `Sources/Vitro/Editor/` — o editor de texto rico baseado em `NSTextView`, os checkboxes e a
+  régua de números de linha.
+- `Sources/Vitro/Models/` — `Note` e a `NotesStore` que as persiste.
+- `main.swift` / `VitroApp.swift` — ponto de entrada em AppKit puro e o menu.
 
-See [CLAUDE.md](CLAUDE.md) for the architecture in depth.
+Veja [CLAUDE.md](CLAUDE.md) para a arquitetura em profundidade.
+
+## Licença
+
+Distribuído sob a licença MIT. Veja [LICENSE](LICENSE) para os termos completos.
